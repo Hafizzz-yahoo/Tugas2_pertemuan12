@@ -13,11 +13,11 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
+Route::get('/buku/search', [BukuController::class, 'search'])
+    ->name('buku.search');
+
 // Buku
 Route::resource('buku', BukuController::class);
-
-Route::get('/buku/kategori/{kategori}', [BukuController::class, 'filterKategori'])
-    ->name('buku.kategori');
 
 // Anggota
 Route::resource('anggota', AnggotaController::class);

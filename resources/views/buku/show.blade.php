@@ -160,11 +160,14 @@
                 
                 <hr>
                 
-                <form action="{{ route('buku.destroy', $buku->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus buku ini?')">
+                <form action="{{ route('buku.destroy', $buku->id) }}" 
+                      method="POST" 
+                      class="d-inline delete-form">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger w-100">
-                        <i class="bi bi-trash"></i> Hapus Buku
+                    <button type="button" class="btn btn-sm btn-danger w-100 btn-delete" 
+                            data-judul="{{ $buku->judul }}">
+                        <i class="bi bi-trash"></i> Hapus
                     </button>
                 </form>
             </div>

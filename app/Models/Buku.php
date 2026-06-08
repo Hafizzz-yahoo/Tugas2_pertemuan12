@@ -66,17 +66,12 @@ class Buku extends Model
     /**
      * Accessor status stok badge.
      */
-    public function getStatusStokBadgeAttribute(): string
+    public function getStatusStokBadgeAttribute()
     {
-        if ($this->stok == 0) {
-            return '<span class="badge bg-danger">Habis</span>';
-        } elseif ($this->stok >= 1 && $this->stok <= 5) {
-            return '<span class="badge bg-warning">Menipis</span>';
-        } elseif ($this->stok >= 6 && $this->stok <= 15) {
-            return '<span class="badge bg-info">Sedang</span>';
-        } else {
-            return '<span class="badge bg-success">Aman</span>';
+        if ($this->stok > 0) {
+            return '<span class="badge bg-success">Tersedia</span>';
         }
+    return '<span class="badge bg-danger">Habis</span>';
     }
 
     /**
