@@ -213,4 +213,17 @@ class BukuController extends Controller
             'tahuns'
         ));
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $request->validate([
+            'buku_ids' => 'required|array',
+            'buku_ids.*' => 'exists:buku,id',
+        ]);
+
+        $ids = $request->buku_ids;
+        Buku::whereIn('id', $ids)->delete();
+        return redirect()->route('buku.index')
+                        ->with('success', count($ids) . ' buku berhasil dihapus!');
+    }
 }

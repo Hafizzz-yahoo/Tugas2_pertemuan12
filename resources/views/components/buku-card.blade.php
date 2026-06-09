@@ -5,6 +5,11 @@
 
         <i class="bi bi-book-fill display-4"></i>
 
+        <input type="checkbox"
+           name="buku_ids[]"
+           value="{{ $buku->id }}"
+           class="form-check-input">
+
     </div>
 
     {{-- Body --}}
@@ -54,26 +59,22 @@
 
                 <a href="{{ route('buku.show', $buku->id) }}"
                 class="btn btn-info btn-sm flex-fill text-white">
-                    <i class="bi bi-eye"></i>
-                    Detail
+                    <i class="bi bi-eye"></i> Detail
                 </a>
 
                 <a href="{{ route('buku.edit', $buku->id) }}"
                 class="btn btn-warning btn-sm flex-fill">
-                    <i class="bi bi-pencil"></i>
-                    Edit
+                    <i class="bi bi-pencil"></i> Edit
                 </a>
 
-                <form action="{{ route('buku.destroy', $buku->id) }}" 
-                      method="POST" 
-                      class="d-inline delete-form">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" class="btn btn-sm btn-danger w-100 btn-delete" 
-                            data-judul="{{ $buku->judul }}">
-                        <i class="bi bi-trash"></i> Hapus
-                    </button>
-                </form>
+                <button type="button"
+                        class="btn btn-danger btn-sm flex-fill btn-delete"
+                        data-id="{{ $buku->id }}"
+                        data-judul="{{ $buku->judul }}">
+                    <i class="bi bi-trash"></i>
+                    Hapus
+                </button>
+
             </div>
         </div>
     @endif

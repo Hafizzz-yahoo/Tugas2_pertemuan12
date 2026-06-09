@@ -156,6 +156,24 @@
  
 {{-- Daftar Buku --}}
 @if($bukus->count() > 0)
+<form action="{{ route('buku.bulk-delete') }}" method="POST">
+    @csrf
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <input type="checkbox" id="select-all">
+            <label for="select-all">
+                Pilih Semua
+            </label>
+        </div>
+
+        <button type="submit"
+                class="btn btn-danger"
+                onclick="return confirm('Hapus semua buku yang dipilih?')">
+            <i class="bi bi-trash"></i>
+            Hapus Terpilih
+        </button>
+    </div>
+
     <div class="row">
         @foreach($bukus as $buku)
             <div class="col-md-4 mb-4">
@@ -163,6 +181,12 @@
             </div>
         @endforeach
     </div>
+</form>
+
+<form id="deleteForm" method="POST" style="display:none;">
+    @csrf
+    @method('DELETE')
+</form>
 
 @else
     <div class="alert alert-info">
@@ -173,7 +197,7 @@
         @endisset
     </div>
 @endif
- 
+
 @if ($bukus->count() > 0)
     <div class="text-center mt-4">
         <p class="text-muted">
@@ -189,25 +213,46 @@
 <script>
     // SweetAlert confirmation untuk delete
     document.querySelectorAll('.btn-delete').forEach(button => {
+
         button.addEventListener('click', function () {
-            const form = this.closest('form');
-            const judul = this.getAttribute('data-judul');
+
+            let id = this.dataset.id;
+            let judul = this.dataset.judul;
 
             Swal.fire({
                 title: 'Konfirmasi Hapus',
-                text: `Apakah Anda yakin ingin menghapus buku "${judul}"?`,
+                text: 'Apakah Anda yakin ingin menghapus buku "' + judul + '" ?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal'
+
             }).then((result) => {
-                if (result.isConfirmed) {
+
+                if(result.isConfirmed){
+
+                    let form = document.getElementById('deleteForm');
+
+                    form.action = "/buku/" + id;
+
                     form.submit();
+
                 }
+
             });
+
         });
+
     });
+</script>
+<script>
+document.getElementById('select-all').addEventListener('change', function () {
+    document.querySelectorAll('input[name="buku_ids[]"]').forEach(cb => {
+        cb.checked = this.checked;
+    });
+
+});
 </script>
 @endpush

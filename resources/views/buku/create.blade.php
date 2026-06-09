@@ -60,8 +60,8 @@
                                     id="kategori" 
                                     class="form-select @error('kategori') is-invalid @enderror">
                                 <option value="">-- Pilih Kategori --</option>
-                                <option value="Pemrograman" {{ old('kategori') == 'Pemrograman' ? 'selected' : '' }}>
-                                    Pemrograman
+                                <option value="Programming" {{ old('kategori') == 'Programming' ? 'selected' : '' }}>
+                                    Programming
                                 </option>
                                 <option value="Database" {{ old('kategori') == 'Database' ? 'selected' : '' }}>
                                     Database

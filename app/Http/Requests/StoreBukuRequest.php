@@ -25,7 +25,7 @@ class StoreBukuRequest extends FormRequest
         return [
             'kode_buku' => ['required', 'max:20', 'unique:buku,kode_buku', new KodeBukuFormat],
             'judul' => 'required|string|max:200',
-            'kategori' => 'required|in:Pemrograman,Database,Web Design,Networking,Data Science',
+            'kategori' => 'required|in:Programming,Database,Web Design,Networking,Data Science',
             'pengarang' => 'required|string|max:100',
             'penerbit' => 'required|string|max:100',
             'tahun_terbit' => 'required|integer|min:1900|max:' . date('Y'),
@@ -42,12 +42,12 @@ class StoreBukuRequest extends FormRequest
         $validator->after(function ($validator) {
             // Jika kategori Pemrograman harus Bahasa Inggris
             if (
-                $this->kategori == 'Pemrograman' &&
-                $this->bahasa != 'Bahasa Inggris'
+                $this->kategori == 'Programming' &&
+                $this->bahasa != 'Inggris'
             ) {
                 $validator->errors()->add(
                     'bahasa',
-                    'Buku kategori Pemrograman harus menggunakan Bahasa Inggris.'
+                    'Buku kategori Programming harus menggunakan Bahasa Inggris.'
                 );
             }
             // Jika tahun < 2000 stok maksimal 5
